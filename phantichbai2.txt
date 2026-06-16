@@ -1,0 +1,95 @@
+Tác hại của from datetime import *
+Đây là một Anti-pattern vì:
+from datetime import *
+
+Lệnh trên sẽ import toàn bộ:
+
+date
+datetime
+time
+timedelta
+timezone
+tzinfo
+vào namespace hiện tại.
+
+Vấn đề 1: Gây xung đột tên (Name Collision)
+
+
+Vấn đề 2: Khó đọc mã nguồn
+
+Khi gặp:
+
+today = datetime.now()
+
+không biết:
+
+datetime đến từ đâu
+thuộc module nào
+Vấn đề 3: Khó bảo trì
+
+Khi dự án lớn hàng nghìn dòng:
+
+date
+time
+datetime
+timedelta
+
+rất dễ bị trùng với tên biến tự định nghĩa.
+
+Cách import đúng
+Khuyến nghị
+import datetime
+
+Sử dụng:
+
+datetime.datetime.now()
+Hoặc
+from datetime import datetime
+
+Sử dụng:
+
+datetime.now()
+
+
+
+Hàm nào tốt hơn os.mkdir()?
+Không nên
+os.mkdir("media_vault")
+
+Vì:
+
+Chỉ tạo được 1 cấp thư mục
+Gây lỗi nếu thư mục tồn tại
+FileExistsError
+Nên dùng
+os.makedirs()
+
+Ví dụ:
+
+os.makedirs(
+    "media_vault/2026/video",
+    exist_ok=True
+)
+
+Ưu điểm:
+
+Tạo được nhiều cấp thư mục
+Không lỗi nếu thư mục đã tồn tại
+Phù hợp hệ thống lưu trữ thực tế
+
+
+
+RikkeiMedia/
+│
+├── main.py
+│
+├── media_vault/
+│
+├── storage/
+│   ├── __init__.py
+│   ├── disk_manager.py
+│   └── io_helper.py
+│
+└── analytics/
+    ├── __init__.py
+    └── time_validator.py
